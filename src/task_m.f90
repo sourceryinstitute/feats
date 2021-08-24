@@ -13,6 +13,7 @@ module task_m
     private
   contains
     procedure(execute_i), deferred :: execute
+    procedure :: is_final_task
   end type
 
   abstract interface
@@ -25,6 +26,17 @@ module task_m
       type(data_location_map_t), intent(in) :: input_locations
       type(payload_t), intent(inout) :: mailbox(:)[*]
     end subroutine
+
+  end interface
+
+  interface
+
+    pure module function is_final_task(self)
+        !! is this the final task?
+        implicit none
+        class(task_t), intent(in) :: self
+        logical :: is_final_task
+    end function
 
   end interface
 
